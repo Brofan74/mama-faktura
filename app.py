@@ -146,11 +146,16 @@ MONTHS = [
 
 def create_invoice_excel(invoice_no, date, month, year, hours, rate, total, total_words, buyer_data):
     """Load .xlsx template and replace only data values"""
+    import os
+    
+    # Получаем путь к папке с приложением
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    
     # Выбираем шаблон в зависимости от клиники
     if buyer_data.get("display_name") == "Międzychód":
-        template_path = "/Users/teehoo/Documents/med/shablon/FakturaSPZOZ Międzychód 22^25.xlsx"
+        template_path = os.path.join(base_dir, "shablon", "FakturaSPZOZ Międzychód 22^25.xlsx")
     else:
-        template_path = "/Users/teehoo/Documents/med/shablon/Faktura Limamed 23^2025.xlsx"
+        template_path = os.path.join(base_dir, "shablon", "Faktura Limamed 23^2025.xlsx")
     
     # Загружаем .xlsx шаблон напрямую через openpyxl (сохраняет все форматирование)
     wb = load_workbook(template_path)
