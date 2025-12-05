@@ -1,4 +1,6 @@
 streamlit
 openpyxl
 num2words
+pandas
+odfpy
 
