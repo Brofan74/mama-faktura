@@ -16,13 +16,35 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for modern mobile-friendly design
+# Custom CSS for professional modern mobile-friendly design with animations
 st.markdown("""
     <style>
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+        }
+        
         /* Основные настройки */
         .main > div {
             padding-top: 1rem;
             max-width: 100%;
+            animation: fadeIn 0.5s ease-in;
         }
         
         /* Крупные поля ввода для мобильных */
@@ -32,15 +54,57 @@ st.markdown("""
             font-size: 18px !important;
             padding: 12px !important;
             min-height: 48px !important;
+            border-radius: 8px !important;
+            border: 2px solid #e0e0e0 !important;
+            transition: all 0.3s ease !important;
+            animation: slideIn 0.4s ease-out;
         }
         
-        /* Крупные кнопки */
+        .stNumberInput > div > div > input:focus,
+        .stTextInput > div > div > input:focus,
+        .stSelectbox > div > div > select:focus {
+            border-color: #667eea !important;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            outline: none !important;
+        }
+        
+        /* Крупные кнопки с градиентами */
         .stButton > button {
             font-size: 18px !important;
             padding: 14px 24px !important;
             min-height: 52px !important;
             border-radius: 12px !important;
             font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .stButton > button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15) !important;
+        }
+        
+        .stButton > button[kind="primary"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+        }
+        
+        .stButton > button[kind="primary"]:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+            animation: pulse 0.6s ease-in-out;
+        }
+        
+        .stButton > button[kind="secondary"] {
+            background: white !important;
+            border: 2px solid #e0e0e0 !important;
+            color: #333 !important;
+        }
+        
+        .stButton > button[kind="secondary"]:hover {
+            border-color: #667eea !important;
+            color: #667eea !important;
+            transform: translateY(-2px) !important;
         }
         
         /* Карточки для клиник */
@@ -52,6 +116,7 @@ st.markdown("""
             cursor: pointer;
             transition: all 0.3s ease;
             background: white;
+            animation: fadeIn 0.5s ease-out;
         }
         .clinic-card:hover {
             transform: translateY(-2px);
@@ -62,30 +127,41 @@ st.markdown("""
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-        }
-        .clinic-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 20px;
-            font-weight: 700;
-        }
-        .clinic-card p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
+            animation: glow 2s ease-in-out infinite;
         }
         
-        /* Секции */
+        /* Секции с анимацией */
         .section {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
+            animation: fadeIn 0.6s ease-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
-        /* Метрики */
+        /* Метрики с анимацией */
         [data-testid="stMetricValue"] {
             font-size: 28px !important;
             font-weight: 700 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        [data-testid="stMetricValue"]:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Успешные сообщения */
+        .stSuccess {
+            animation: slideIn 0.4s ease-out;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        
+        /* Информационные блоки */
+        .stInfo {
+            animation: fadeIn 0.5s ease-out;
+            border-radius: 8px;
         }
         
         /* Мобильная оптимизация */
@@ -106,6 +182,72 @@ st.markdown("""
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
+        
+        /* Плавные переходы для всех элементов */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Анимация для заголовков */
+        h1, h2, h3 {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        /* Улучшенные метрики */
+        [data-testid="stMetricContainer"] {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.7s ease-out;
+            transition: transform 0.3s ease;
+        }
+        
+        [data-testid="stMetricContainer"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Анимация для кнопок выбора клиники */
+        .stButton > button[key*="clinic"] {
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stButton > button[key*="clinic"]:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 0.5s ease-in-out;
+        }
+        
+        @keyframes shine {
+            to { left: 100%; }
+        }
+        
+        /* Анимация для полей ввода при фокусе */
+        .stTextInput > div > div > input:focus,
+        .stNumberInput > div > div > input:focus {
+            animation: pulse 0.3s ease-in-out;
+        }
+        
+        /* Улучшенные сообщения */
+        .stSuccess, .stInfo, .stWarning, .stError {
+            animation: slideIn 0.4s ease-out;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Прогресс спиннера */
+        .stSpinner > div {
+            animation: pulse 1s ease-in-out infinite;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -236,23 +378,40 @@ def main():
     # Секция: Usługi
     st.markdown("### 💼 Usługi")
     
-    hours = st.number_input(
+    # Используем session_state для хранения значений
+    if 'hours_str' not in st.session_state:
+        st.session_state.hours_str = ""
+    if 'rate' not in st.session_state:
+        st.session_state.rate = 170.0
+    
+    # Поле для часов - text_input чтобы можно было оставить пустым
+    hours_input = st.text_input(
         "⏰ Ilość godzin", 
-        min_value=0.0, 
-        value=0.0, 
-        step=0.5, 
-        format="%.1f",
-        help="Wprowadź liczbę przepracowanych godzin"
+        value=st.session_state.hours_str,
+        help="Wprowadź liczbę przepracowanych godzin (np. 111 или 111.5)",
+        key="hours_input",
+        placeholder="np. 111"
     )
+    st.session_state.hours_str = hours_input
+    
+    # Парсим значение часов
+    try:
+        hours = float(hours_input.replace(',', '.')) if hours_input.strip() else 0.0
+    except ValueError:
+        hours = 0.0
+        if hours_input.strip():
+            st.warning("⚠️ Wprowadź prawidłową liczbę godzin")
     
     rate = st.number_input(
         "💰 Stawka (zł)", 
         min_value=0.0, 
-        value=170.0, 
+        value=st.session_state.rate,
         step=1.0, 
         format="%.2f",
-        help="Stawka za godzinę w złotych"
+        help="Stawka za godzinę w złotych",
+        key="rate_input"
     )
+    st.session_state.rate = rate
     
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -289,36 +448,50 @@ def main():
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Generate Excel button - большая кнопка
-    if st.button("📥 Generuj fakturę Excel", type="primary", use_container_width=True):
-        if total <= 0:
-            st.error("❌ Proszę wprowadzić prawidłową ilość godzin i stawkę.")
-        else:
-            with st.spinner("⏳ Generowanie faktury..."):
-                try:
-                    wb = create_invoice_excel(invoice_no, date, month, year, hours, rate, total, total_words, selected_clinic_data)
-                    
-                    # Save to bytes
-                    buffer = io.BytesIO()
-                    wb.save(buffer)
-                    buffer.seek(0)
-                    
-                    # Download button
-                    filename = f"Faktura_{invoice_no.replace('/', '_')}.xlsx"
-                    st.download_button(
-                        label="⬇️ Pobierz plik Excel",
-                        data=buffer,
-                        file_name=filename,
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        use_container_width=True,
-                        type="primary"
-                    )
-                    
-                    st.balloons()
-                    st.success(f"✅ Faktura wygenerowana pomyślnie: **{filename}**")
-                except Exception as e:
-                    st.error(f"❌ Błąd podczas generowania faktury: {e}")
-                    st.exception(e)
+    # Валидация перед генерацией
+    validation_errors = []
+    if not hours_input.strip() or hours <= 0:
+        validation_errors.append("⚠️ Wprowadź ilość godzin (większą od 0)")
+    if rate <= 0:
+        validation_errors.append("⚠️ Wprowadź stawkę (większą od 0)")
+    if not invoice_no or invoice_no.strip() == "":
+        validation_errors.append("⚠️ Wprowadź numer faktury")
+    
+    # Показываем ошибки валидации с анимацией (только если есть данные для проверки)
+    if hours_input.strip() or rate > 0:
+        if validation_errors:
+            for error in validation_errors:
+                st.warning(error)
+    
+    # Generate Excel button - большая кнопка с анимацией
+    generate_disabled = total <= 0 or len(validation_errors) > 0
+    
+    if st.button("📥 Generuj fakturę Excel", type="primary", use_container_width=True, disabled=generate_disabled):
+        with st.spinner("⏳ Generowanie faktury..."):
+            try:
+                wb = create_invoice_excel(invoice_no, date, month, year, hours, rate, total, total_words, selected_clinic_data)
+                
+                # Save to bytes
+                buffer = io.BytesIO()
+                wb.save(buffer)
+                buffer.seek(0)
+                
+                # Download button
+                filename = f"Faktura_{invoice_no.replace('/', '_')}.xlsx"
+                st.download_button(
+                    label="⬇️ Pobierz plik Excel",
+                    data=buffer,
+                    file_name=filename,
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    use_container_width=True,
+                    type="primary"
+                )
+                
+                st.balloons()
+                st.success(f"✅ Faktura wygenerowana pomyślnie: **{filename}**")
+            except Exception as e:
+                st.error(f"❌ Błąd podczas generowania faktury: {e}")
+                st.exception(e)
 
 if __name__ == "__main__":
     main()
